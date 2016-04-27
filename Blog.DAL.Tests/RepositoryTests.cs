@@ -94,5 +94,58 @@ namespace Blog.DAL.Tests
             // assert
             Assert.AreEqual(0, result);
         }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AddPostWithoutAuthor_ShouldThrowException()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            repository.AddPost(new Post() { Content = "lalala" });
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AddPostWithoutContent_ShouldThrowException()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            repository.AddPost(new Post() { Author = "lalala" });
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AddCommentWithoutContent_ShouldThrowException()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            repository.GetAllPosts().First().Comments.Add(new Comment() {Author = "aaaa"});
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AddCommentWithoutAuthor_ShouldThrowException()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            repository.GetAllPosts().First().Comments.Add(new Comment() { Content = "aaaa" });
+
+        }
     }
 }
