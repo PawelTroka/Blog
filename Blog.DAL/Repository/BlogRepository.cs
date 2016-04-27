@@ -24,5 +24,16 @@ namespace Blog.DAL.Repository
             _context.Posts.Add(post);
             _context.SaveChanges();
         }
+
+        public IEnumerable<Comment> GetAllCommentsForPost(Post post)
+        {
+            return _context.Posts.Find(post.Id).Comments;
+        }
+
+        public void AddComment(Post post, Comment comment)
+        {
+            _context.Posts.Find(post.Id).Comments.Add(comment);
+            _context.SaveChanges();
+        }
     }
 }

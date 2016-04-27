@@ -1,7 +1,14 @@
 ﻿Posts:
  test-post:
+  Id: 1
   Author: test
   Content: test, test, test...
  test-post2:
-  Author: test2fajny
-  Content: lubie testy
+  Id: 2
+  Author: test2
+  Content: dwa dwa dwa dwa
+Comments:
+ test-post-comment:
+  PostId: 1
+  Content: ha ha ha
+  Author: jadwiga

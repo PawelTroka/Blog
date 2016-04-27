@@ -20,36 +20,79 @@ namespace Blog.DAL.Tests
         {
             SetYamlFiles("posts.yml");
         }
-    }
+    }
+
     public class BlogFixturesModel
     {
         public FixtureTable<Post> Posts { get; set; }
+        public FixtureTable<Comment> Comments { get; set; }
     }
 
     [TestClass]
     public class RepositoryTests : DbBaseTest<BlogFixtures>
     {
         [TestMethod]
-        public void GetAllPost_OnePostInDb_ReturnOnePost()
+        public void GetAllPost_TwoPostsInDb_ReturnTwoPosts()
         {
             // arrange
             var context = new BlogContext();
             context.Database.CreateIfNotExists();
             var repository = new BlogRepository();
 
-            // -- prepare data in db
-          //  context.Posts.ToList().ForEach(x => context.Posts.Remove(x));
-          //  context.Posts.Add(new Post
-         //   {
-       //         Author = "test",
-       //         Content = "test, test, test..."
-      //      });
-    //        context.SaveChanges();
-
             // act
             var result = repository.GetAllPosts();
             // assert
             Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void AddPost_OneMorePostInDb_ReturnOneMorePost()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+
+            // act
+            var numberOfPosts = repository.GetAllPosts().Count();
+            repository.AddPost(new Post() {Author = "Gen",Content = "lalala"});
+            var newNumberOfPosts = repository.GetAllPosts().Count();
+            // assert
+            Assert.AreEqual(newNumberOfPosts, numberOfPosts+1);
+        }
+
+
+
+        [TestMethod]
+        public void GetAllCommentsForFirstPost_OneCommentInDb_ReturnOneComment()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            // act
+            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().First());
+            
+            // assert
+            Assert.AreEqual(1, result);
+        }
+
+
+        [TestMethod]
+        public void GetAllCommentsForLastPost_OneCommentInDb_ReturnZeroComments()
+        {
+            // arrange
+            var context = new BlogContext();
+            context.Database.CreateIfNotExists();
+            var repository = new BlogRepository();
+
+            // act
+            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().Last());
+
+            // assert
+            Assert.AreEqual(0, result);
         }
     }
 }
