@@ -73,7 +73,7 @@ namespace Blog.DAL.Tests
             var repository = new BlogRepository();
 
             // act
-            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().First());
+            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().First()).Count();
             
             // assert
             Assert.AreEqual(1, result);
@@ -89,7 +89,7 @@ namespace Blog.DAL.Tests
             var repository = new BlogRepository();
 
             // act
-            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().Last());
+            var result = repository.GetAllCommentsForPost(repository.GetAllPosts().Last()).Count();
 
             // assert
             Assert.AreEqual(0, result);

@@ -11,7 +11,8 @@ namespace Blog.DAL.Infrastructure
 
         public BlogContext() : base("Blog")
         {
-            Database.SetInitializer<BlogContext>(null);
+            //  Database.SetInitializer<BlogContext>(null);
+            Database.SetInitializer<BlogContext>(new DropCreateDatabaseIfModelChanges<BlogContext>());
         }
     }
 }
