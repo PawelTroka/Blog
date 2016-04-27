@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using Blog.DAL.Model;
 
 namespace Blog.DAL.Infrastructure
@@ -9,6 +10,7 @@ namespace Blog.DAL.Infrastructure
 
         public BlogContext() : base("Blog")
         {
+            Database.SetInitializer<BlogContext>(null);
         }
     }
 }
