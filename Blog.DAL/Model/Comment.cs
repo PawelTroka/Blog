@@ -11,9 +11,9 @@ namespace Blog.DAL.Model
         //[ForeignKey("Post")]
         public long PostId { get; set; }
 
-        [Required, MaxLength(3000)]
+        [Required, MinLength(3), MaxLength(3000)]
         public string Content { get; set; }
-        [Required, MaxLength(100)]
+        [Required, MinLength(2),MaxLength(100)]
         public string Author { get; set; }
 
 

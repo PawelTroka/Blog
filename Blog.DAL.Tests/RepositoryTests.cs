@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -97,7 +98,7 @@ namespace Blog.DAL.Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ValidationException))]
         public void AddPostWithoutAuthor_ShouldThrowException()
         {
             // arrange
@@ -110,7 +111,7 @@ namespace Blog.DAL.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ValidationException))]
         public void AddPostWithoutContent_ShouldThrowException()
         {
             // arrange
@@ -123,7 +124,7 @@ namespace Blog.DAL.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ValidationException))]
         public void AddCommentWithoutContent_ShouldThrowException()
         {
             // arrange
@@ -131,12 +132,12 @@ namespace Blog.DAL.Tests
             context.Database.CreateIfNotExists();
             var repository = new BlogRepository();
 
-            repository.GetAllPosts().First().Comments.Add(new Comment() {Author = "aaaa"});
+            repository.AddComment(repository.GetAllPosts().First(), new Comment() { Author = "aaaa" });
 
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ValidationException))]
         public void AddCommentWithoutAuthor_ShouldThrowException()
         {
             // arrange
@@ -144,7 +145,7 @@ namespace Blog.DAL.Tests
             context.Database.CreateIfNotExists();
             var repository = new BlogRepository();
 
-            repository.GetAllPosts().First().Comments.Add(new Comment() { Content = "aaaa" });
+            repository.AddComment(repository.GetAllPosts().First(), new Comment() { Content = "aaaa" });
 
         }
     }

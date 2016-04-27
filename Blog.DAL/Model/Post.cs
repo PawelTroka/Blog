@@ -8,9 +8,9 @@ namespace Blog.DAL.Model
         [Key]
         public long Id { get; set; }
 
-        [Required,MaxLength(100000)]
+        [Required, MinLength(5), MaxLength(100000)]
         public string Content { get; set; }
-        [Required,MaxLength(100)]
+        [Required,MinLength(2),MaxLength(100)]
         public string Author { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
