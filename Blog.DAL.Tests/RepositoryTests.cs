@@ -136,10 +136,13 @@ namespace Blog.DAL.Tests
 
         }
 
+
+
         [TestMethod]
         [ExpectedException(typeof(ValidationException))]
         public void AddCommentWithoutAuthor_ShouldThrowException()
         {
+
             // arrange
             var context = new BlogContext();
             context.Database.CreateIfNotExists();

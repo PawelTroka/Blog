@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.DAL.Model
 {
+
+
     public class Comment
     {
         [Key]
