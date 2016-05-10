@@ -10,25 +10,9 @@ using Blog.DAL.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using TDD.DbTestHelpers.Core;
-using TDD.DbTestHelpers.Yaml;
 
 namespace Blog.DAL.Tests
 {
-    public class BlogFixtures
- : YamlDbFixture<BlogContext, BlogFixturesModel>
-    {
-        public BlogFixtures()
-        {
-            SetYamlFiles("posts.yml");
-        }
-    }
-
-    public class BlogFixturesModel
-    {
-        public FixtureTable<Post> Posts { get; set; }
-        public FixtureTable<Comment> Comments { get; set; }
-    }
-
     [TestClass]
     public class RepositoryTests : DbBaseTest<BlogFixtures>
     {
@@ -54,7 +38,6 @@ namespace Blog.DAL.Tests
             context.Database.CreateIfNotExists();
             var repository = new BlogRepository();
 
-
             // act
             var numberOfPosts = repository.GetAllPosts().Count();
             repository.AddPost(new Post() {Author = "Gen",Content = "lalala"});
@@ -62,7 +45,6 @@ namespace Blog.DAL.Tests
             // assert
             Assert.AreEqual(newNumberOfPosts, numberOfPosts+1);
         }
-
 
 
         [TestMethod]
@@ -80,7 +62,6 @@ namespace Blog.DAL.Tests
             Assert.AreEqual(1, result);
         }
 
-
         [TestMethod]
         public void GetAllCommentsForLastPost_OneCommentInDb_ReturnZeroComments()
         {
@@ -96,7 +77,6 @@ namespace Blog.DAL.Tests
             Assert.AreEqual(0, result);
         }
 
-
         [TestMethod]
         [ExpectedException(typeof(ValidationException))]
         public void AddPostWithoutAuthor_ShouldThrowException()
@@ -107,7 +87,6 @@ namespace Blog.DAL.Tests
             var repository = new BlogRepository();
 
             repository.AddPost(new Post() { Content = "lalala" });
-
         }
 
         [TestMethod]
@@ -135,8 +114,6 @@ namespace Blog.DAL.Tests
             repository.AddComment(repository.GetAllPosts().First(), new Comment() { Author = "aaaa" });
 
         }
-
-
 
         [TestMethod]
         [ExpectedException(typeof(ValidationException))]

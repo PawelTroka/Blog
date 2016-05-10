@@ -59,6 +59,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlogFixtures.cs" />
+    <Compile Include="BlogFixturesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests.cs" />
   </ItemGroup>
